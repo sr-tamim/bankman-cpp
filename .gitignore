@@ -1,2 +1,27 @@
-bin
-obj
+# .gitignore for C++ Code::Blocks project
+
+# Ignore all build directories
+bin/
+obj/
+
+# Ignore all .layout and .depend files
+*.layout
+*.depend
+
+# Ignore all .exe, .dll, .o, .a, .so files
+*.exe
+*.dll
+*.o
+*.a
+*.so
+
+# Ignore all .bak, .swo, .swp (backup and swap files)
+*.bak
+*.swo
+*.swp
+
+# Ignore all Code::Blocks project files
+*.cbp
+
+# Ignore all .log files
+*.log
