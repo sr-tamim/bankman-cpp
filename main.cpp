@@ -11,7 +11,7 @@ private:
 protected:
     double interestRate;
     //vector<Transaction> transactions;
-public: 
+public:
     BankAccount(const string& accountNumber, const string& accountHolderName, double initialBalance){
         this->accountNumber = accountNumber;
         this->accountHolderName = accountHolderName;
@@ -37,8 +37,10 @@ public:
     virtual void applyFees();
 };
 
+class Customer; // forward declaration to use inside LoadAccount class
+
 class LoanAccount{
-private: 
+private:
     double loanAmount;
     double interestRate;
     int loanTenure;
@@ -76,7 +78,7 @@ private:
 protected:
     vector<BankAccount*> accounts;
     vector<LoanAccount*> loans;
-public: 
+public:
     Customer(const string& name, const string& address, const string& contactInformation){
         this->name = name;
         this->address = address;
