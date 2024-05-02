@@ -2,11 +2,23 @@
 
 using namespace std;
 
-class BankAccount{};
+class BankAccount{
+public: 
+    virtual void calcualateInterest() = 0;
+    virtual void applyFees();
+};
 
-class LoanAccount{};
+class LoanAccount{
+public:
+    virtual void calculateMonthlyPayment() = 0;
+    virtual bool isEligible(const Customer& customer);
+};
 
-class Customer{};
+class Customer{
+public: 
+    virtual double calculateCreditScore() = 0;
+    virtual void updateCustomerInformation();
+};
 
 class SavingsAcount : public BankAccount{};
 
