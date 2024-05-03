@@ -2,70 +2,133 @@
 #ifndef ACCOUNT_CLASS
 #define ACCOUNT_CLASS
 
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-class BankAccount{
+class BankAccount
+{
 private:
-    double customerID;
+    double ID;
     string accountNumber;
     string accountHolderName;
+    string contactInformation;
     double balance;
+    string address;
+
 protected:
     double interestRate;
-    //vector<Transaction> transactions;
+    // vector<Transaction> transactions;
 public:
-    BankAccount(const string& accountNumber, const string& accountHolderName, double initialBalance){
+    BankAccount(double ID)
+    {
+        this->ID = ID;
+    }
+
+    BankAccount(const string &accountNumber, const string &accountHolderName, double initialBalance)
+    {
         this->accountNumber = accountNumber;
         this->accountHolderName = accountHolderName;
         balance = initialBalance;
     }
 
-    string getAccountNumber() const{
+    string getAccountNumber() const
+    {
         return accountNumber;
     }
 
-    string getAccountHolderName() const{
+    string getAccountHolderName() const
+    {
         return accountHolderName;
     }
 
-    double getBalance() const{
+    double getBalance() const
+    {
         return balance;
     }
 
+    void setName(const string &name)
+    {
+        accountHolderName = name;
+    }
+
+    void setContactInformation(const string &contactInformation)
+    {
+        this->contactInformation = contactInformation;
+    }
+
+    void setAccountNumber(string accountNumber)
+    {
+        this->accountNumber = accountNumber;
+    }
+
+    void setAddress(string address)
+    {
+        this->address = address;
+    }
+
+    string getName()
+    {
+        return accountHolderName;
+    }
+
+    string getAddress()
+    {
+        return address;
+    }
+
+    string getContactInformation()
+    {
+        return contactInformation;
+    }
+
+    /*void displayAccounts() {
+        for (const auto& acc : accounts) {
+        cout << "ID: " << acc->ID << endl;
+        cout << "Name: " << acc->getName() << endl;
+        cout << "Address: " << acc->getAddress() << endl;
+        cout << "Contact Information: " << acc->getContactInformation() << endl;
+        cout << endl;
+        }
+    }*/
+
     virtual void deposit(double amount);
     virtual void withdraw(double amount);
-    virtual double calculateInterest() = 0;
-    virtual void calcualateInterest() = 0;
+    virtual double calculateInterest();
+    virtual void calcualateInterest();
     virtual void applyFees();
 };
 
-
-class LoanAccount{
+class LoanAccount
+{
 private:
     double customerID;
     double loanAmount;
     double interestRate;
     int loanTenure;
+
 protected:
-    //vector<Payment> paymentHistory;
+    // vector<Payment> paymentHistory;
 public:
-    LoanAccount(double loanAmount, double interestRate, int loanTenure){
+    LoanAccount(double loanAmount, double interestRate, int loanTenure)
+    {
         this->loanAmount = loanAmount;
         this->interestRate = interestRate;
         this->loanTenure = loanTenure;
     }
 
-    double getLoanAmount() const{
+    double getLoanAmount() const
+    {
         return loanAmount;
     }
 
-    double getInterestRate() const{
+    double getInterestRate() const
+    {
         return interestRate;
     }
 
-    double getLoanTenure() const{
+    double getLoanTenure() const
+    {
         return loanTenure;
     }
 
@@ -73,6 +136,5 @@ public:
     virtual void calculateMonthlyPayment() = 0;
     virtual bool isEligible();
 };
-
 
 #endif // ACCOUNT_CLASS
