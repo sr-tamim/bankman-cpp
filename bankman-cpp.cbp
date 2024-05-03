@@ -35,6 +35,7 @@
 		</Compiler>
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Account.h" />
+		<Unit filename="src/Customer.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

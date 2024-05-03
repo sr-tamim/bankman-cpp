@@ -3,10 +3,12 @@
 #define ACCOUNT_CLASS
 
 #include<iostream>
+#include<vector>
 using namespace std;
 
 class BankAccount{
 private:
+    double customerID;
     string accountNumber;
     string accountHolderName;
     double balance;
@@ -38,5 +40,39 @@ public:
     virtual void calcualateInterest() = 0;
     virtual void applyFees();
 };
+
+
+class LoanAccount{
+private:
+    double customerID;
+    double loanAmount;
+    double interestRate;
+    int loanTenure;
+protected:
+    //vector<Payment> paymentHistory;
+public:
+    LoanAccount(double loanAmount, double interestRate, int loanTenure){
+        this->loanAmount = loanAmount;
+        this->interestRate = interestRate;
+        this->loanTenure = loanTenure;
+    }
+
+    double getLoanAmount() const{
+        return loanAmount;
+    }
+
+    double getInterestRate() const{
+        return interestRate;
+    }
+
+    double getLoanTenure() const{
+        return loanTenure;
+    }
+
+    virtual bool makePayment(double amount);
+    virtual void calculateMonthlyPayment() = 0;
+    virtual bool isEligible();
+};
+
 
 #endif // ACCOUNT_CLASS
