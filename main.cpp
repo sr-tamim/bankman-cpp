@@ -2,6 +2,7 @@
 #include<vector>
 #include<Account.h>
 #include<Customer.h>
+#include<Bank.h>
 
 using namespace std;
 
