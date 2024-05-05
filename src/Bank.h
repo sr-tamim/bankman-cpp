@@ -1,4 +1,3 @@
-
 #ifndef BANK_CLASS
 #define BANK_CLASS
 

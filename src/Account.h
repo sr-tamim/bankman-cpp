@@ -1,75 +1,66 @@
-
 #ifndef ACCOUNT_CLASS
 #define ACCOUNT_CLASS
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
 class BankAccount
 {
-private:
+
+protected:
     double ID;
     string accountNumber;
     string accountHolderName;
     string contactInformation;
     double balance;
     string address;
-
-protected:
     double interestRate;
-    // vector<Transaction> transactions;
+
 public:
     BankAccount(double ID)
     {
         this->ID = ID;
+        balance = 0.0;
     }
 
-    BankAccount(const string &accountNumber, const string &accountHolderName, double initialBalance)
+    BankAccount(string accountNumber, string accountHolderName, double balance)
     {
         this->accountNumber = accountNumber;
         this->accountHolderName = accountHolderName;
-        balance = initialBalance;
+        this->balance = balance;
     }
 
-    string getAccountNumber() const
+    virtual void deposit(double amount) = 0;
+    virtual void withdraw(double amount) = 0;
+    virtual double calculateInterest() = 0;
+
+    string getAccountNumber()
     {
         return accountNumber;
     }
-
-    string getAccountHolderName() const
+    string getAccountHolderName()
     {
         return accountHolderName;
     }
 
-    double getBalance() const
-    {
-        return balance;
-    }
-
-    void setName(const string &name)
+    void setName(string name)
     {
         accountHolderName = name;
     }
 
-    void setContactInformation(const string &contactInformation)
+    void setContactInformation(string contact)
     {
-        this->contactInformation = contactInformation;
+        contactInformation = contact;
     }
 
-    void setAccountNumber(string accountNumber)
+    void setAccountNumber(string number)
     {
-        this->accountNumber = accountNumber;
+        accountNumber = number;
     }
 
-    void setAddress(string address)
+    void setAddress(string addr)
     {
-        this->address = address;
-    }
-
-    string getName()
-    {
-        return accountHolderName;
+        address = addr;
     }
 
     string getAddress()
@@ -82,59 +73,120 @@ public:
         return contactInformation;
     }
 
-    /*void displayAccounts() {
-        for (const auto& acc : accounts) {
-        cout << "ID: " << acc->ID << endl;
-        cout << "Name: " << acc->getName() << endl;
-        cout << "Address: " << acc->getAddress() << endl;
-        cout << "Contact Information: " << acc->getContactInformation() << endl;
-        cout << endl;
-        }
-    }*/
-
-    virtual void deposit(double amount);
-    virtual void withdraw(double amount);
-    virtual double calculateInterest();
-    virtual void calcualateInterest();
-    virtual void applyFees();
+    // virtual ~BankAccount() = default;   // Virtual destructor for polymorphism
 };
 
-class LoanAccount
+class SavingsAccount : public BankAccount
 {
 private:
-    double customerID;
-    double loanAmount;
-    double interestRate;
-    int loanTenure;
+    double minimumBalance; // "minimumBalance" refers to the lowest amount of funds that must be maintained in an account to avoid penalties or maintain the account's status.
 
-protected:
-    // vector<Payment> paymentHistory;
 public:
-    LoanAccount(double loanAmount, double interestRate, int loanTenure)
+    SavingsAccount(string accountNumber, string accountHolderName, double balance, double minimumBalance) : BankAccount(accountNumber, accountHolderName, balance), minimumBalance(minimumBalance)
     {
-        this->loanAmount = loanAmount;
-        this->interestRate = interestRate;
-        this->loanTenure = loanTenure;
+        interestRate = 0.02;
     }
 
-    double getLoanAmount() const
+    void deposit(double amount) override
     {
-        return loanAmount;
+        balance += amount;
     }
 
-    double getInterestRate() const
+    void withdraw(double amount) override
     {
-        return interestRate;
+        if (balance - amount >= minimumBalance)
+        {
+            balance = balance - amount;
+        }
+        else
+        {
+            cout << "Insufficient balance to maintain minimum balance " << endl;
+        }
     }
 
-    double getLoanTenure() const
+    double calculateInterest() override
     {
-        return loanTenure;
+        return balance * interestRate; // calculate interest --> formula --> (current balance * interest rate)
     }
-
-    virtual bool makePayment(double amount);
-    virtual void calculateMonthlyPayment() = 0;
-    virtual bool isEligible();
 };
 
-#endif // ACCOUNT_CLASS
+class CheckingAccount : public BankAccount
+{
+
+private:
+    double overdraftLimit; // the limit flexibility what customer cannot overdraw their accounts beyond an acceptable level
+
+public:
+    CheckingAccount(string accountNumber, string accountHolderName, double balance, double overdraftLimit) : BankAccount(accountNumber, accountHolderName, balance), overdraftLimit(overdraftLimit)
+    {
+        interestRate = 0.1;
+    }
+
+    void deposit(double amount) override
+    {
+        balance = balance + amount;
+    }
+
+    void withdraw(double amount) override
+    {
+        if (balance + overdraftLimit >= amount)
+        {
+            balance = balance - amount;
+        }
+        else
+        {
+            cout << " Exceeds overdraft limit" << endl;
+        }
+    }
+
+    double calculateInterest() override
+    {
+        return 0; // checking account does not earn interest
+    }
+};
+
+class LoanAccount : public BankAccount
+{
+
+private:
+    double loanAmount;
+    int loanTenure;
+
+public:
+    LoanAccount(string accountNumber, string accountHolderName, double loanAmount, double interestRate, int loanTenure) : BankAccount(accountNumber, accountHolderName, 0.0), loanAmount(loanAmount), loanTenure(loanTenure)
+    // here balance is set by 0.0 in 'BankAccount' initializer list because this is a loan account, not a typical deposit-based account
+    {
+        this->interestRate = interestRate;
+    }
+
+    void deposit(double amount) override
+    {
+        cout << "Deposit not allowed for loan accounts.\n";
+    }
+
+    void withdraw(double amount) override
+    {
+        cout << "Withdraw not allowed for loan accounts" << endl;
+    }
+
+    double calculateInterest() override
+    {
+        return loanAmount * interestRate;
+    }
+
+    // This function allows a payment to be made toward the loan. It serves to reduce the outstanding loan balance by the specified amount.
+    void makePayment(double amount)
+    {
+        cout << "Payment of " << amount << "made towards loan " << endl;
+        loanAmount = loanAmount - amount;
+    }
+
+    // This function calculates the monthly payment required to repay the loan over a specified tenure, given the loan amount, interest rate, and loan tenure.
+    void calculateMonthlyPayment()
+    {
+        double monthlyPayment = (loanAmount * interestRate) / loanTenure;
+        cout << "Monthly payment: " << monthlyPayment << endl;
+    }
+};
+
+#endif
