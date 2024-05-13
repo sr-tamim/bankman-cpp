@@ -43,7 +43,7 @@ public:
         cin >> contactInformation;
         cout << endl;
 
-        BankAccount *acc1 = new BankAccount(accounts.size());
+        SavingsAccount *acc1 = new SavingsAccount(accounts.size());
         acc1->setName(userName);
         acc1->setAddress(address);
         acc1->setContactInformation(contactInformation);

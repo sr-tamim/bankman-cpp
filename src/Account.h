@@ -79,10 +79,12 @@ public:
 class SavingsAccount : public BankAccount
 {
 private:
-    double minimumBalance; // "minimumBalance" refers to the lowest amount of funds that must be maintained in an account to avoid penalties or maintain the account's status.
+    double minimumBalance = 500; // "minimumBalance" refers to the lowest amount of funds that must be maintained in an account to avoid penalties or maintain the account's status.
 
 public:
-    SavingsAccount(string accountNumber, string accountHolderName, double balance, double minimumBalance) : BankAccount(accountNumber, accountHolderName, balance), minimumBalance(minimumBalance)
+    SavingsAccount(double id) : BankAccount(id) { }
+
+    SavingsAccount(string accountNumber, string accountHolderName, double balance) : BankAccount(accountNumber, accountHolderName, balance)
     {
         interestRate = 0.02;
     }
