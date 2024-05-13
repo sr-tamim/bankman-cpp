@@ -4,25 +4,34 @@
 #include<Customer.h>
 #include<Bank.h>
 #include<Utilities.h>
+#include<Menu.h>
 
 using namespace std;
 
 int main()
 {
-    /*
-    Sample : -->
+    Menu menu;
 
-    BankAccount* savings = new SavingsAccount("SA123", "John Doe", 200, 50);
-    BankAccount* checking = new CheckingAccount("CA123", "Jane Doe", 200, 100);
+    Bank bank("NUB Bank Ltd", "Dhaka");
+    menu.menuOptions.insertAtEnd(MenuOption("Create Account", (void (*)())&bank.createAccount));
+    menu.menuOptions.insertAtEnd(MenuOption("Exit", (void (*)())&Utilities::exit));
 
-    // Testing LoanAccount :-->
-    LoanAccount* loan = new LoanAccount("LA123", "Jim Beam", 10000, 0.05, 12);
-    loan->makePayment(1000);
-    loan->calculateMonthlyPayment();
+    int choice;
+    while (true)
+    {
+        menu.displayMenu();
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cout << endl;
 
-    */
+        if (choice < 1 || choice > menu.menuOptions.size())
+        {
+            cout << "Invalid choice" << endl;
+            continue;
+        }
 
+        menu.menuOptions.get(choice - 1).invoke();
+    }
 
-    cout << "Hello World!" << endl;
     return 0;
 }
