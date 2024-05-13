@@ -39,6 +39,7 @@
 		<Unit filename="src/Customer.h" />
 		<Unit filename="src/Utilities.h" />
 		<Unit filename="src/LinkedList.h" />
+		<Unit filename="src/Queue.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

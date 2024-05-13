@@ -68,35 +68,43 @@ public:
         }
     }
 
-    void deleteAtStart()
+    T deleteAtStart()
     {
         if (head == nullptr)
         {
             cout << "List is empty" << endl;
+            return NULL;
         }
         else
         {
             Node<T> *temp = head;
             head = head->next;
             head->prev = nullptr;
+            T data = temp->data;
             delete temp;
+            return data;
         }
     }
 
-    void deleteAtEnd()
+    T deleteAtEnd()
     {
         if (head == nullptr)
         {
             cout << "List is empty" << endl;
+            return NULL;
         }
         else
         {
             Node<T> *temp = tail;
             tail = tail->prev;
             tail->next = nullptr;
+            T data = temp->data;
             delete temp;
+            return data;
         }
     }
+
+    virtual void sort();
 
     ~LinkedList()
     {
