@@ -10,26 +10,38 @@ class Queue
 {
 private:
     LinkedList<T> list;
+    int _size;
 
 public:
-    int size;
-    T front = list->head->data;
-    T rear = list->tail->data;
-
     Queue()
     {
-        size = 0;
+        _size = 0;
     }
 
     bool isEmpty()
     {
-        return size == 0;
+        return size() == 0;
+    }
+
+    int size()
+    {
+        return _size;
+    }
+
+    T front()
+    {
+        return list->head->data;
+    }
+
+    T rear()
+    {
+        return list->tail->data;
     }
 
     void enqueue(T data)
     {
         list.insertAtEnd(data);
-        size++;
+        _size++;
     }
 
     T dequeue()
@@ -40,7 +52,7 @@ public:
             return NULL;
         }
         T data = list.deleteAtStart();
-        size--;
+        _size--;
         return data;
     }
 };
