@@ -40,6 +40,7 @@
 		<Unit filename="src/Utilities.h" />
 		<Unit filename="src/LinkedList.h" />
 		<Unit filename="src/Queue.h" />
+		<Unit filename="src/Menu.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
