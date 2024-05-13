@@ -10,9 +10,12 @@ class Queue
 {
 private:
     LinkedList<T> list;
-    int size;
 
 public:
+    int size;
+    T front = list->head->data;
+    T rear = list->tail->data;
+
     Queue()
     {
         size = 0;

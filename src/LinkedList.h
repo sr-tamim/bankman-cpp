@@ -23,10 +23,10 @@ public:
 template <class T>
 class LinkedList
 {
-private:
+protected:
     Node<T> *head;
     Node<T> *tail;
-    
+
 public:
     LinkedList()
     {
