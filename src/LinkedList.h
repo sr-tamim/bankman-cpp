@@ -34,6 +34,18 @@ public:
         tail = nullptr;
     }
 
+    int size()
+    {
+        int count = 0;
+        Node<T> *temp = head;
+        while (temp != nullptr)
+        {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+
     void insertAtEnd(T data)
     {
         Node<T> *newNode = new Node<T>(data);
@@ -104,7 +116,24 @@ public:
         }
     }
 
-    virtual void sort();
+    T get(int index)
+    {
+        if (index < 0 || index >= size())
+        {
+            cout << "Invalid index" << endl;
+        }
+        else
+        {
+            Node<T> *temp = head;
+            for (int i = 0; i < index; i++)
+            {
+                temp = temp->next;
+            }
+            return temp->data;
+        }
+    }
+
+    //virtual void sort();
 
     ~LinkedList()
     {
