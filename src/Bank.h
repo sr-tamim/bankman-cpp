@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include "Account.h"
+#include <Queue.h>
 using namespace std;
 
 class Bank
@@ -21,7 +22,7 @@ public:
         this->bankName = bankName;
     }
 
-    vector<BankAccount *> accounts;
+    Queue<SavingsAccount *> savingsAccounts;
 
     void createAccount()
     {
@@ -43,13 +44,13 @@ public:
         cin >> contactInformation;
         cout << endl;
 
-        SavingsAccount *acc1 = new SavingsAccount(accounts.size());
+        SavingsAccount *acc1 = new SavingsAccount(savingsAccounts.size());
         acc1->setName(userName);
         acc1->setAddress(address);
         acc1->setContactInformation(contactInformation);
         acc1->setAccountNumber(accountNumber);
 
-        accounts.push_back(acc1);
+        savingsAccounts.enqueue(acc1);
     }
 };
 
