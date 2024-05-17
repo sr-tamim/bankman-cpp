@@ -5,7 +5,7 @@
 #include <vector>
 #include <fstream>
 #include "Account.h"
-#include <Queue.h>
+#include <LinkedList.h>
 using namespace std;
 
 class Bank
@@ -22,7 +22,7 @@ public:
         this->bankName = bankName;
     }
 
-    Queue<SavingsAccount *> savingsAccounts;
+    LinkedList<SavingsAccount *> savingsAccounts;
 
     void createAccount()
     {
@@ -44,13 +44,13 @@ public:
         cin >> contactInformation;
         cout << endl;
 
-        SavingsAccount *acc1 = new SavingsAccount(savingsAccounts.size());
+        SavingsAccount *acc1 = new SavingsAccount(savingsAccounts.size() + 1);
         acc1->setName(userName);
         acc1->setAddress(address);
         acc1->setContactInformation(contactInformation);
         acc1->setAccountNumber(accountNumber);
 
-        savingsAccounts.enqueue(acc1);
+        savingsAccounts.insertAtEnd(acc1);
     }
 };
 

@@ -8,11 +8,12 @@
 
 using namespace std;
 
+
 int main()
 {
     Menu menu;
-
     Bank bank("NUB Bank Ltd", "Dhaka");
+
     menu.menuOptions.insertAtEnd(MenuOption("Create Account", (void (*)())&bank.createAccount));
     menu.menuOptions.insertAtEnd(MenuOption("Exit", (void (*)())&Utilities::exit));
 
