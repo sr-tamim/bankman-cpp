@@ -1,5 +1,8 @@
 # .gitignore for C++ Code::Blocks project
 
+# Ignore vscode files
+.vscode/
+
 # Ignore all build directories
 bin/
 obj/
