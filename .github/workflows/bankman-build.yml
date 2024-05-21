@@ -1,0 +1,38 @@
+name: C/C++ CI - BankMan Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build the project
+      run: make all
+    
+    - name: Execute the binary
+      run: |
+        if [[ -f bin/Debug/bankman ]]; then
+          ./bin/Debug/bankman & kill $!;
+        elif [[ -f bin/Release/bankman ]]; then
+          ./bin/Release/bankman & kill $!;
+        elif [[ -f bin/Debug/bankman.exe ]]; then
+          ./bin/Debug/bankman.exe & kill $!;
+        elif [[ -f bin/Release/bankman.exe ]]; then
+          ./bin/Release/bankman.exe & kill $!;
+        else
+          echo "Binary not found!";
+          exit 1;
+        fi
+    
+    - name: Clean the project
+      run: make clean
