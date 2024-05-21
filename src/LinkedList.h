@@ -121,6 +121,7 @@ public:
         if (index < 0 || index >= size())
         {
             cout << "Invalid index" << endl;
+            return T();
         }
         else
         {
