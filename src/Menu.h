@@ -8,16 +8,27 @@ using namespace std;
 
 class MenuOption
 {
-public:
+private:
     string title;
-    void (*invoke)();
+    std::function<void()> action;
 
+public:
     MenuOption() {}
 
-    MenuOption(string title, void (*invk)())
+    MenuOption(string title, std::function<void()> actn)
     {
         this->title = title;
-        this->invoke = invk;
+        this->action = actn;
+    }
+
+    string getTitle()
+    {
+        return title;
+    }
+
+    void invoke()
+    {
+        action();
     }
 };
 
@@ -30,7 +41,7 @@ public:
     {
         for (int i = 0; i < menuOptions.size(); i++)
         {
-            cout << i + 1 << ". " << menuOptions.get(i).title << endl;
+            cout << i + 1 << ". " << menuOptions.get(i).getTitle() << endl;
         }
     }
 };

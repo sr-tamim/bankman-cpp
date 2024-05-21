@@ -14,8 +14,8 @@ int main()
     Menu menu;
     Bank bank("NUB Bank Ltd", "Dhaka");
 
-    menu.menuOptions.insertAtEnd(MenuOption("Create Account", (void (*)())&bank.createAccount));
-    menu.menuOptions.insertAtEnd(MenuOption("Exit", (void (*)())&Utilities::exit));
+    menu.menuOptions.insertAtEnd(MenuOption("Create Account", [&bank]() { bank.createAccount(); }));
+    menu.menuOptions.insertAtEnd(MenuOption("Exit", []() { Utilities::exit(); }));
 
     int choice;
     while (true)
